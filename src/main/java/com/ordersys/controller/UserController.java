@@ -1,9 +1,10 @@
 package com.ordersys.controller;
 
 
-import com.manage.cn.comon.CommResult;
-import com.manage.cn.dao.generator.model.User;
-import com.manage.cn.service.UserService;
+
+import com.ordersys.comon.CommResult;
+import com.ordersys.model.User;
+import com.ordersys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
