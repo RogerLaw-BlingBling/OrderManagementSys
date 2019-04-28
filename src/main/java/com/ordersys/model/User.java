@@ -1,20 +1,24 @@
 package com.ordersys.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tb_user")
 public class User {
+    public enum UserRole {
+        ADMIN, NORMAL
+    }
+
     private Integer id;
-
     private String username;
-
-    private String login_name;
-
+    private String nickname;
     private String password;
-
-    private Integer user_role;
-
-    private Integer phone;
-
+    private UserRole userRole;
+    private String phone;
     private String avatar;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -22,6 +26,7 @@ public class User {
     public void setId(Integer id) {
         this.id = id;
     }
+
 
     public String getUsername() {
         return username;
@@ -31,12 +36,12 @@ public class User {
         this.username = username == null ? null : username.trim();
     }
 
-    public String getLogin_name() {
-        return login_name;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setLogin_name(String login_name) {
-        this.login_name = login_name == null ? null : login_name.trim();
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
     }
 
     public String getPassword() {
@@ -47,19 +52,20 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public Integer getUser_role() {
-        return user_role;
+    @Enumerated(EnumType.STRING)
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setUser_role(Integer user_role) {
-        this.user_role = user_role;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
