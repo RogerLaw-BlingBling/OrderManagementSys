@@ -1,15 +1,16 @@
 package com.ordersys.service;
 
-import com.ordersys.model.User;
+import com.ordersys.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+@Service
+public class UserService {
 
-public interface UserService {
+    private final UserRepository userRepository;
 
-    User getById(Integer id);
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-    Integer addUser(User user);
-
-    List<User> list();
 
 }

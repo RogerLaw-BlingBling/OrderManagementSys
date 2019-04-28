@@ -1,6 +1,6 @@
 package com.ordersys.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.ordersys.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
-    @GetMapping
-    public String hello() {
-        return "Hello World";
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
+
 
 }
