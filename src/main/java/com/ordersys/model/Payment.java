@@ -1,9 +1,6 @@
 package com.ordersys.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 @Entity
 public class Payment {
@@ -60,6 +57,7 @@ public class Payment {
         this.payee = payee;
     }
 
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getPaymentTime() {
         return paymentTime;
     }

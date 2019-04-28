@@ -1,9 +1,6 @@
 package com.ordersys.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Customer {
@@ -30,6 +27,7 @@ public class Customer {
         this.id = id;
     }
 
+    @Column(columnDefinition = "VARCHAR(32)")
     public String getCustomerName() {
         return customerName;
     }
@@ -38,6 +36,7 @@ public class Customer {
         this.customerName = customerName;
     }
 
+    @Column(columnDefinition = "VARCHAR(32)")
     public String getAddress() {
         return address;
     }
@@ -46,6 +45,7 @@ public class Customer {
         this.address = address;
     }
 
+    @Column(columnDefinition = "VARCHAR(32)")
     public String getContactPerson() {
         return contactPerson;
     }
@@ -54,6 +54,7 @@ public class Customer {
         this.contactPerson = contactPerson;
     }
 
+    @Column(columnDefinition = "VARCHAR(18)")
     public String getMobilePhone() {
         return mobilePhone;
     }
@@ -62,6 +63,7 @@ public class Customer {
         this.mobilePhone = mobilePhone;
     }
 
+    @Column(columnDefinition = "VARCHAR(64)")
     public String getEmail() {
         return email;
     }
@@ -70,6 +72,7 @@ public class Customer {
         this.email = email;
     }
 
+    @Column(columnDefinition = "VARCHAR(32)")
     public String getBankName() {
         return bankName;
     }
@@ -78,6 +81,7 @@ public class Customer {
         this.bankName = bankName;
     }
 
+    @Column(columnDefinition = "VARCHAR(32)")
     public String getBankAccountNum() {
         return bankAccountNum;
     }
