@@ -1,4 +1,0 @@
-spring:
-  datasource:
-    username: app_order_app
-    password: 123456
