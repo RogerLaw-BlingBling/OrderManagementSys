@@ -1,7 +1,10 @@
 package com.ordersys.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
 public class Payment {
     private Integer id;
@@ -9,11 +12,13 @@ public class Payment {
     //付款方式
     private String paymentTerm;
     //汇款人
-    private String remitter;
+    private String payer;
     //收款人
     private String payee;
     //收款时间
     private Date paymentTime;
+
+    private Integer value;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,12 +46,12 @@ public class Payment {
         this.paymentTerm = paymentTerm;
     }
 
-    public String getRemitter() {
-        return remitter;
+    public String getPayer() {
+        return payer;
     }
 
-    public void setRemitter(String remitter) {
-        this.remitter = remitter;
+    public void setPayer(String payer) {
+        this.payer = payer;
     }
 
     public String getPayee() {
@@ -64,5 +69,23 @@ public class Payment {
 
     public void setPaymentTime(Date paymentTime) {
         this.paymentTime = paymentTime;
+    }
+
+    @JsonIgnore
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    // The real amount of payment
+    public Double getAmount() {
+        return ((double) value) / 100;
+    }
+
+    public void setAmount(Double amount) {
+        this.value = Math.toIntExact(Math.round(amount * 100));
     }
 }

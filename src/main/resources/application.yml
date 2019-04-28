@@ -5,6 +5,11 @@ server:
     max-http-post-size: 2000000000
 
 spring:
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL57Dialect
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://127.0.0.1:3306/order_sys?useUnicode=true&characterEncoding=utf-8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
@@ -15,11 +20,3 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-
-
-
-# thymeleaf:
-#    cache: true
-#
-#mybatis:
-      ##    mapper-locations: classpath:mapxml/*.xml

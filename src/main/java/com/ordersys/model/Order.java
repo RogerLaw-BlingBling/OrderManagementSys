@@ -1,6 +1,8 @@
 package com.ordersys.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,15 +12,13 @@ public class Order {
     private String orderId;
     private Integer customerId;
     //订单名
-    private String Title;
-    //订单总额
-    private int oderTotal;
-    //预计金额
-    private String estimatedAmount;
+    private String title;
+    private Integer value;
+    //付款次數
+    private Integer paymentTimes;
     //乙方经办人
     private Integer handlerId;
     private Date createTime;
-
     private String comments;
 
     @Id
@@ -48,27 +48,20 @@ public class Order {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
-    public int getOderTotal() {
-        return oderTotal;
+    @JsonIgnore
+    public Integer getValue() {
+        return value;
     }
 
-    public void setOderTotal(int oderTotal) {
-        this.oderTotal = oderTotal;
-    }
-
-    public String getEstimatedAmount() {
-        return estimatedAmount;
-    }
-
-    public void setEstimatedAmount(String estimatedAmount) {
-        this.estimatedAmount = estimatedAmount;
+    public void setValue(Integer value) {
+        this.value = value;
     }
 
     public Integer getHandlerId() {
@@ -94,5 +87,22 @@ public class Order {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public Integer getPaymentTimes() {
+        return paymentTimes;
+    }
+
+    public void setPaymentTimes(Integer paymentTimes) {
+        this.paymentTimes = paymentTimes;
+    }
+
+    //订单总额
+    public Double getOrderTotal() {
+        return ((double) value) / 100;
+    }
+
+    public void setOrderTotal(Double orderTotal) {
+        this.value = Math.toIntExact(Math.round(orderTotal * 100));
     }
 }
