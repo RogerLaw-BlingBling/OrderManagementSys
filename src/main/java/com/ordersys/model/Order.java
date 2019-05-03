@@ -17,7 +17,7 @@ public class Order {
     //付款次數
     private Integer paymentTimes;
     //乙方经办人
-    private Integer handlerId;
+    private String handlerName;
     private Date createTime;
     private String comments;
 
@@ -64,13 +64,14 @@ public class Order {
         this.value = value;
     }
 
-    public Integer getHandlerId() {
-        return handlerId;
+    public String getHandlerName() {
+        return handlerName;
     }
 
-    public void setHandlerId(Integer handlerId) {
-        this.handlerId = handlerId;
+    public void setHandlerName(String handlerName) {
+        this.handlerName = handlerName;
     }
+
 
     @Temporal(TemporalType.TIMESTAMP)
     public Date getCreateTime() {

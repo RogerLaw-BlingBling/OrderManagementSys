@@ -12,6 +12,8 @@ public class Project {
     private Date createTime;
     private Date beginTime;
     private Date endTime;
+    private float duration;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,4 +75,12 @@ public class Project {
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
+    public float getDuration() {
+        return duration;
+    }
+
+    public void setDuration(float duration) {
+        this.duration = duration;
+    }
+
 }
