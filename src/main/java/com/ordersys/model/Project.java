@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "tb_project")
 public class Project {
     public enum Status {
         CREATE, IN_PROGRESS, FINISHED

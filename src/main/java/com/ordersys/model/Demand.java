@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "tb_demand")
 public class Demand {
     private Integer id;
     private Integer orderId;

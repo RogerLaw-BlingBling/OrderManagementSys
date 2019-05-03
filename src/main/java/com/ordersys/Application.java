@@ -10,7 +10,7 @@ import java.io.File;
 public class Application {
     @Bean(name = "dataDirectory")
     public File dataDirectory() {
-        return new File("./");
+        return new File("./data");
     }
 
     public static void main(String[] args) {

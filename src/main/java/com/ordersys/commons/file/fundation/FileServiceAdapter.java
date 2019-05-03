@@ -19,7 +19,7 @@ public class FileServiceAdapter<I extends Serializable> implements FileService<I
         this.domainName = domainName;
 
         File currentContextFolder = new File(rootFolder, domainName);
-        if (!currentContextFolder.exists() && !currentContextFolder.mkdir())
+        if (!currentContextFolder.exists() && !currentContextFolder.mkdirs())
             throw new RuntimeException("Could not create domain folder " + currentContextFolder.getAbsolutePath());
     }
 

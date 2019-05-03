@@ -3,6 +3,7 @@ package com.ordersys.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "tb_customer")
 public class Customer {
     private Integer id;
     //客户名
