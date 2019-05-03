@@ -5,15 +5,18 @@ import java.util.Date;
 
 @Entity
 public class Project {
+    public enum Status {
+        CREATE, IN_PROGRESS, FINISHED
+    }
+
     private Integer id;
     private Integer orderId;
     private String projectName;
-    private String projectStatus;
+    private Status projectStatus;
     private Date createTime;
     private Date beginTime;
     private Date endTime;
     private float duration;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,11 +44,13 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public String getProjectStatus() {
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "CHAR(16)")
+    public Status getProjectStatus() {
         return projectStatus;
     }
 
-    public void setProjectStatus(String projectStatus) {
+    public void setProjectStatus(Status projectStatus) {
         this.projectStatus = projectStatus;
     }
 
@@ -75,6 +80,8 @@ public class Project {
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
+
+    @Column(precision = 8, scale = 2)
     public float getDuration() {
         return duration;
     }
