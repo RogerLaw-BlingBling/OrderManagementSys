@@ -18,6 +18,10 @@ public class Payment {
     private String payee;
     //收款时间
     private Date paymentTime;
+    //附加说明
+    private String addition;
+    //摘要
+    private String summary;
 
     private Integer value;
 
@@ -88,5 +92,21 @@ public class Payment {
 
     public void setAmount(Double amount) {
         this.value = Math.toIntExact(Math.round(amount * 100));
+    }
+
+    public String getAddition() {
+        return addition;
+    }
+
+    public void setAddition(String addition) {
+        this.addition = addition;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

@@ -2,7 +2,6 @@ package com.ordersys.controller;
 
 import com.ordersys.UserToken;
 import com.ordersys.commons.RexModel;
-import com.ordersys.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.web.bind.annotation.PostMapping;

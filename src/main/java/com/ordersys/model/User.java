@@ -76,4 +76,17 @@ public class User {
     public void setAvatar(String avatar) {
         this.avatar = avatar == null ? null : avatar.trim();
     }
+
+    public User(Integer id, String username, String nickname, String password, UserRole userRole, String phone, String avatar) {
+        this.id = id;
+        this.username = username;
+        this.nickname = nickname;
+        this.password = password;
+        this.userRole = userRole;
+        this.phone = phone;
+        this.avatar = avatar;
+    }
+
+    public User() {
+    }
 }
