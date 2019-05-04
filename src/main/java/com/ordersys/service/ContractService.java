@@ -1,6 +1,5 @@
 package com.ordersys.service;
 
-import com.ordersys.commons.BusinessException;
 import com.ordersys.commons.file.fundation.FileContext;
 import com.ordersys.model.Contract;
 import com.ordersys.repository.ContractRepository;
@@ -12,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -33,8 +34,8 @@ public class ContractService {
         return contractRepository.findById(id);
     }
 
-    public FileContext saveAttachmentTo(Integer id, MultipartFile file) throws IOException {
-        Contract contract = contractRepository.findById(id).orElseThrow(() -> new BusinessException("demand_not_found"));
+    public FileContext saveAttachmentTo(Contract contract, MultipartFile file) throws IOException {
+        final Integer id = contract.getId();
 
         if (!contract.getFilePath().trim().isEmpty()) {
             FileContext oldFile = fileService.get(id, contract.getFilePath());
@@ -43,8 +44,22 @@ public class ContractService {
         }
 
         FileContext newFile = fileService.save(id, file.getOriginalFilename(), file.getInputStream());
-        contract.setFilePath(newFile.getDomainPath());
+        contract.setTitle(file.getOriginalFilename());
+        contract.setFilePath(newFile.getFile().getName());
+        contract.setUploadTime(new Date());
         contractRepository.save(contract);
         return newFile;
+    }
+
+    public Contract save(Contract contract) {
+        return contractRepository.save(contract);
+    }
+
+    public Collection<Contract> findAllByOrderId(String orderId) {
+        return contractRepository.findAllByOrderId(orderId);
+    }
+
+    public FileContext getAttachmentFile(Contract contract) {
+        return fileService.get(contract.getId(),contract.getFilePath());
     }
 }

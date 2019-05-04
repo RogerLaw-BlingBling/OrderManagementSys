@@ -8,6 +8,7 @@ import java.util.Date;
 public class Contract {
     private Integer id;
     private Integer orderId;
+    private String title;
     private Date uploadTime;
     private String filePath;
 
@@ -44,5 +45,13 @@ public class Contract {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
