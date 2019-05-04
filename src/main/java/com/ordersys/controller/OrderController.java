@@ -5,6 +5,7 @@ import com.ordersys.commons.RexModel;
 import com.ordersys.controller.form.OrderUpdateForm;
 import com.ordersys.model.Order;
 import com.ordersys.service.OrderService;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
+@RequiresUser
 public class OrderController {
 
     private final OrderService orderService;

@@ -17,7 +17,7 @@ public class Project {
     private Date createTime;
     private Date beginTime;
     private Date endTime;
-    private float duration;
+    private Double duration;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,11 +83,11 @@ public class Project {
     }
 
     @Column(precision = 8, scale = 2)
-    public float getDuration() {
+    public Double getDuration() {
         return duration;
     }
 
-    public void setDuration(float duration) {
+    public void setDuration(Double duration) {
         this.duration = duration;
     }
 

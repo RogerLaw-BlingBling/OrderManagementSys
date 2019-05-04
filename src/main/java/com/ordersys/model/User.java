@@ -1,5 +1,7 @@
 package com.ordersys.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -44,6 +46,7 @@ public class User {
         this.nickname = nickname == null ? null : nickname.trim();
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String getPassword() {
         return password;
     }

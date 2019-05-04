@@ -32,4 +32,8 @@ public class ProjectService {
     public Page<Project> queryByName(String keyword, Pageable pageable) {
         return projectRepository.findByProjectNameLike("%" + keyword + "%", pageable);
     }
+
+    public Project save(Project project) {
+        return projectRepository.save(project);
+    }
 }
