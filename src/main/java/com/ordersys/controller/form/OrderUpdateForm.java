@@ -1,4 +1,4 @@
-package com.ordersys.controller;
+package com.ordersys.controller.form;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
