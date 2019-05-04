@@ -9,9 +9,14 @@ import java.util.Date;
 @Entity
 @Table(name = "tb_order")
 public class Order {
+    public enum Status {
+        CREATED, IN_PROGRESS, FINISHED
+    }
+
     private Integer id;
     private String orderId;
     private Integer customerId;
+    private Status orderStatus;
     //订单名
     private String title;
     private Integer value;
@@ -73,6 +78,15 @@ public class Order {
         this.handlerName = handlerName;
     }
 
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "CHAR(16)")
+    public Status getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(Status orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     @Temporal(TemporalType.TIMESTAMP)
     public Date getCreateTime() {
