@@ -7,7 +7,8 @@ import java.util.Date;
 @Table(name = "tb_demand")
 public class Demand {
     private Integer id;
-    private Integer orderId;
+    private Integer projectId;
+    private String title;
     private Date uploadTime;
     private String fileName;
 
@@ -21,12 +22,12 @@ public class Demand {
         this.id = id;
     }
 
-    public Integer getOrderId() {
-        return orderId;
+    public Integer getProjectId() {
+        return projectId;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -44,5 +45,13 @@ public class Demand {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

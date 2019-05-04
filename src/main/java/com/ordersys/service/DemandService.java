@@ -2,6 +2,7 @@ package com.ordersys.service;
 
 import com.ordersys.commons.BusinessException;
 import com.ordersys.commons.file.fundation.FileContext;
+import com.ordersys.controller.DemandController;
 import com.ordersys.model.Demand;
 import com.ordersys.repository.DemandRepository;
 import org.apache.commons.io.FileUtils;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -33,8 +36,8 @@ public class DemandService {
         return demandRepository.findById(id);
     }
 
-    public FileContext saveAttachmentTo(Integer id, MultipartFile file) throws IOException {
-        Demand demand = demandRepository.findById(id).orElseThrow(() -> new BusinessException("demand_not_found"));
+    public FileContext saveAttachmentTo(Demand demand, MultipartFile file) throws IOException {
+        final Integer id = demand.getId();
 
         if (!demand.getFileName().trim().isEmpty()) {
             FileContext oldFile = fileService.get(id, demand.getFileName());
@@ -43,8 +46,22 @@ public class DemandService {
         }
 
         FileContext newFile = fileService.save(id, file.getOriginalFilename(), file.getInputStream());
-        demand.setFileName(newFile.getDomainPath());
+        demand.setFileName(newFile.getFile().getName());
+        demand.setUploadTime(new Date());
+        demand.setTitle(file.getOriginalFilename());
         demandRepository.save(demand);
         return newFile;
+    }
+
+    public Demand save(Demand demand) {
+        return demandRepository.save(demand);
+    }
+
+    public Collection<Demand> findByProjectId(Integer id) {
+        return demandRepository.findByProjectId(id);
+    }
+
+    public FileContext getAttachment(Demand demand) {
+        return fileService.get(demand.getId(),demand.getFileName());
     }
 }
