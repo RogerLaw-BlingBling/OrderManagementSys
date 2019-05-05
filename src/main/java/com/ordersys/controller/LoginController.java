@@ -17,7 +17,9 @@ public class LoginController {
     @PostMapping(params = "login")
     public RexModel login(@RequestBody UserToken token) {
         SecurityUtils.getSecurityManager().login(SecurityUtils.getSubject(), token);
-        return new RexModel().withMessage("success");
+        return new RexModel<>()
+                .withMessage("success")
+                .withData(SecurityUtils.getSubject().getPrincipal());
     }
 
     @PostMapping(params = "logout")
