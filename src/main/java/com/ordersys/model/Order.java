@@ -115,10 +115,14 @@ public class Order {
 
     //订单总额
     public Double getOrderTotal() {
-        return ((double) value) / 100;
+        return this.value == null ? 0 : ((double) value) / 100;
     }
 
     public void setOrderTotal(Double orderTotal) {
+        if(orderTotal == null) {
+            this.value = 0;
+            return;
+        }
         this.value = Math.toIntExact(Math.round(orderTotal * 100));
     }
 }
