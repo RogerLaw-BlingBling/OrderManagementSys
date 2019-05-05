@@ -29,8 +29,8 @@ public class OrderController {
     }
 
     @GetMapping(params = "status")
-    public Page<Order> queryByStatus(@RequestParam("status") Order.Status status, @PageableDefault Pageable pageable) {
-        return orderService.queryByStatus(status, pageable);
+    public Page<Order> queryByStatus(@RequestParam("status") String status, @PageableDefault Pageable pageable) {
+        return orderService.queryByStatus(Order.Status.valueOf(status.toUpperCase()), pageable);
     }
 
     @PutMapping
