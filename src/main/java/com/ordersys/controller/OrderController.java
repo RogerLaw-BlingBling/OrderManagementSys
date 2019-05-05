@@ -41,12 +41,13 @@ public class OrderController {
     }
 
     @PostMapping(value = "/{orderId}", params = "status")
-    public Order updateStatus(@PathVariable("orderId") String orderId, @RequestParam("status") Order.Status status) {
+    public Order updateStatus(@PathVariable("orderId") String orderId, @RequestParam("status") String status) {
+
         Order order = orderService
                 .findByOrderId(orderId)
                 .orElseThrow(() -> new BusinessException("order_not_found"));
 
-        order.setOrderStatus(status);
+        order.setOrderStatus(Order.Status.valueOf(status.toUpperCase()));
         return orderService.save(order);
     }
 

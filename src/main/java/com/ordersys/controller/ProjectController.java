@@ -39,8 +39,8 @@ public class ProjectController {
     }
 
     @GetMapping(params = "status")
-    public Page<Project> getByStatus(@RequestParam("status") Project.Status status, @PageableDefault(size = 30) Pageable pageable) {
-        return projectService.findAllByProgress(status, pageable);
+    public Page<Project> getByStatus(@RequestParam("status") String status, @PageableDefault(size = 30) Pageable pageable) {
+        return projectService.findAllByProgress(Project.Status.valueOf(status), pageable);
     }
 
     @GetMapping(params = "keyword")
