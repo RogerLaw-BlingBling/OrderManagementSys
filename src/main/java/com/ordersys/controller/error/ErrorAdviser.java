@@ -13,16 +13,22 @@ public class ErrorAdviser {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<RexModel> businessException(BusinessException e) {
-        return ResponseEntity.ok(new RexModel().withMessage(e.getMessage()).withError(e.getError()));
+        return ResponseEntity.ok(new RexModel()
+                .withMessage(e.getMessage())
+                .withError(e.getError()));
     }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<RexModel> authenticationException(AuthenticationException e) {
-        return ResponseEntity.ok(new RexModel().withMessage(e.getMessage()).withError("authentication_exception"));
+        return ResponseEntity.ok(new RexModel()
+                .withMessage(e.getMessage())
+                .withError("authentication_exception"));
     }
 
     @ExceptionHandler(AuthorizationException.class)
     public ResponseEntity<RexModel> authorizationException(AuthorizationException e) {
-        return ResponseEntity.ok(new RexModel().withMessage(e.getMessage()).withError("authorization_exception"));
+        return ResponseEntity.ok(new RexModel()
+                .withMessage(e.getMessage())
+                .withError("authorization_exception"));
     }
 }

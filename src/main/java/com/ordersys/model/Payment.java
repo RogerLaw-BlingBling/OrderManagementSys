@@ -23,7 +23,7 @@ public class Payment {
     //摘要
     private String summary;
 
-    private Integer value;
+    private Integer value = 0;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
