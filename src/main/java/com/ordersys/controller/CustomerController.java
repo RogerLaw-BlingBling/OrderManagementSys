@@ -32,7 +32,7 @@ public class CustomerController {
     }
 
     @PostMapping("/{id}")
-    public Customer update(Integer id, CustomerUpdateForm form) {
+    public Customer update(@PathVariable("id") Integer id, @RequestBody CustomerUpdateForm form) {
         Customer customer = customerService.findById(id).orElseThrow(() -> new BusinessException("customer_not_found"));
         BeanUtils.copyProperties(form, customer);
         return customerService.save(customer);
