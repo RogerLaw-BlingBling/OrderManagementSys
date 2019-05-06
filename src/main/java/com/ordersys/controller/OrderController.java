@@ -33,11 +33,12 @@ public class OrderController {
         return orderService.queryByStatus(Order.Status.valueOf(status.toUpperCase()), pageable);
     }
 
-    @PutMapping
-    public RexModel<String> create() {
-        Order order = orderService.createNewEmptyOrder();
-        return new RexModel<String>()
-                .withData(order.getOrderId());
+    @PostMapping
+    public RexModel create(@RequestBody OrderUpdateForm form) {
+        Order order = new Order();
+        BeanUtils.copyProperties(form, order);
+        return new RexModel<>()
+                .withData(orderService.save(order));
     }
 
     @PostMapping(value = "/{orderId}", params = "status")

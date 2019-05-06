@@ -48,6 +48,13 @@ public class ProjectController {
         return projectService.queryByName(keyword, pageable);
     }
 
+    @PostMapping("/{id}")
+    public Project updateStatus(@PathVariable("id") Integer id, @RequestParam("status") String status) {
+        Project project = projectService.findOne(id).orElseThrow(() -> new BusinessException("project_not_found"));
+        project.setProjectStatus(Project.Status.valueOf(status.toUpperCase()));
+        return projectService.save(project);
+    }
+
     @PostMapping(params = "orderId")
     public Project create(@RequestParam("orderId") String orderId, @RequestBody ProjectUpdateForm projectUpdateForm) {
         Order order = orderService.findByOrderId(orderId).orElseThrow(() -> new BusinessException("order_not_found"));
