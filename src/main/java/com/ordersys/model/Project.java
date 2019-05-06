@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "tb_project")
 public class Project {
     public enum Status {
-        CREATE, IN_PROGRESS, FINISHED
+        CREATED, IN_PROGRESS, FINISHED
     }
 
     private Integer id;

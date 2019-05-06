@@ -55,7 +55,7 @@ public class ProjectController {
         Project project = new Project();
         project.setOrderId(order.getId());
         project.setCreateTime(new Date());
-        project.setProjectStatus(Project.Status.CREATE);
+        project.setProjectStatus(Project.Status.CREATED);
 
         BeanUtils.copyProperties(projectUpdateForm, project);
 
