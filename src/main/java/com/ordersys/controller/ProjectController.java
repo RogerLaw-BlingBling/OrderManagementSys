@@ -48,7 +48,7 @@ public class ProjectController {
         return projectService.queryByName(keyword, pageable);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping(value = "/{id}",params = "status")
     public Project updateStatus(@PathVariable("id") Integer id, @RequestParam("status") String status) {
         Project project = projectService.findOne(id).orElseThrow(() -> new BusinessException("project_not_found"));
         project.setProjectStatus(Project.Status.valueOf(status.toUpperCase()));

@@ -1,6 +1,7 @@
 package com.ordersys.controller;
 
 import com.ordersys.commons.BusinessException;
+import com.ordersys.commons.Randoms;
 import com.ordersys.commons.RexModel;
 import com.ordersys.controller.form.OrderUpdateForm;
 import com.ordersys.model.Order;
@@ -34,11 +35,11 @@ public class OrderController {
     }
 
     @PostMapping
-    public RexModel create(@RequestBody OrderUpdateForm form) {
+    public Order create(@RequestBody OrderUpdateForm form) {
         Order order = new Order();
+        order.setOrderId(Randoms.randomTimeId());
         BeanUtils.copyProperties(form, order);
-        return new RexModel<>()
-                .withData(orderService.save(order));
+        return orderService.save(order);
     }
 
     @PostMapping(value = "/{orderId}", params = "status")
@@ -52,7 +53,7 @@ public class OrderController {
         return orderService.save(order);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public Order save(@PathVariable("id") String orderId, @RequestBody OrderUpdateForm form) {
         Order order = orderService
                 .findByOrderId(orderId)

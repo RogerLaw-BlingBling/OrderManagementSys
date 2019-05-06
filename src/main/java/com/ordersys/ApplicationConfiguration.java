@@ -13,7 +13,7 @@ public class ApplicationConfiguration {
 
     @Autowired
     public ApplicationConfiguration(ObjectMapper objectMapper) {
-        objectMapper.enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+//        objectMapper.enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     @Bean(name = "dataDirectory")
