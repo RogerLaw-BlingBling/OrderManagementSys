@@ -19,7 +19,7 @@ public class Order {
     private Status orderStatus;
     //订单名
     private String title;
-    private Integer value = 0;
+    private Integer value;
     //付款次數
     private Integer paymentTimes;
     //乙方经办人

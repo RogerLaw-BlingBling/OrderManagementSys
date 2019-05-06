@@ -28,6 +28,13 @@ public class ProjectController {
         this.orderService = orderService;
     }
 
+    /**
+     *
+     * List all projects
+     *
+     * @param pageable Pageable
+     * @return Paged result
+     */
     @GetMapping
     public Page<Project> get(@PageableDefault Pageable pageable) {
         return projectService.findAll(pageable);

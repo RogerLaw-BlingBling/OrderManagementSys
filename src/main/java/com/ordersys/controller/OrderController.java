@@ -2,7 +2,6 @@ package com.ordersys.controller;
 
 import com.ordersys.commons.BusinessException;
 import com.ordersys.commons.Randoms;
-import com.ordersys.commons.RexModel;
 import com.ordersys.controller.form.OrderUpdateForm;
 import com.ordersys.model.Order;
 import com.ordersys.service.OrderService;
@@ -25,14 +24,23 @@ public class OrderController {
     }
 
     @GetMapping
-    public Page<Order> get(@PageableDefault Pageable pageable) {
-        return orderService.findAll(pageable);
+    public Page<Order> get(@RequestParam(value = "orderId", required = false, defaultValue = "") String orderId,
+                           @RequestParam(value = "status", required = false, defaultValue = "") String status,
+                           @PageableDefault Pageable pageable) {
+
+        if (orderId.isEmpty() && status.isEmpty()) return orderService.findAll(pageable);
+
+        Order orderExample = new Order();
+        if (!orderId.isEmpty()) orderExample.setOrderId(orderId);
+        if (!status.isEmpty()) orderExample.setOrderStatus(Order.Status.valueOf(status.toUpperCase()));
+
+        return orderService.query(orderExample, pageable);
     }
 
-    @GetMapping(params = "status")
-    public Page<Order> queryByStatus(@RequestParam("status") String status, @PageableDefault Pageable pageable) {
-        return orderService.queryByStatus(Order.Status.valueOf(status.toUpperCase()), pageable);
-    }
+//    @GetMapping(params = "status")
+//    public Page<Order> queryByStatus(@RequestParam("status") String status, @PageableDefault Pageable pageable) {
+//        return orderService.queryByStatus(Order.Status.valueOf(status.toUpperCase()), pageable);
+//    }
 
     @PostMapping
     public Order create(@RequestBody OrderUpdateForm form) {
