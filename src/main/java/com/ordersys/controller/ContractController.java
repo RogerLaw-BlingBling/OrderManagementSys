@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/contract")
@@ -64,5 +65,15 @@ public class ContractController {
 
         FileContext newFile = contractService.saveAttachmentTo(contract, file);
         return new RexModel().withMessage(newFile.getDomainPath());
+    }
+
+    @DeleteMapping("/{id}")
+    public RexModel delete(@PathVariable("id") Integer id) throws IOException {
+        Optional<Contract> query = contractService.findOne(id);
+        if (!query.isPresent()) return new RexModel().withMessage("contract_not_exists");
+
+        contractService.delete(query.get());
+
+        return new RexModel().withMessage("success");
     }
 }

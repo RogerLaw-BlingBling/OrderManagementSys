@@ -81,4 +81,10 @@ public class UserController {
         userService.save(user);
         return new RexModel().withMessage("success");
     }
+
+    @DeleteMapping("/{id}")
+    public RexModel delete(@PathVariable("id") Integer id) {
+        userService.delete(id);
+        return new RexModel().withMessage("success");
+    }
 }

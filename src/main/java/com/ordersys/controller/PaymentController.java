@@ -1,6 +1,7 @@
 package com.ordersys.controller;
 
 import com.ordersys.commons.BusinessException;
+import com.ordersys.commons.RexModel;
 import com.ordersys.controller.form.PaymentUpdateForm;
 import com.ordersys.model.Order;
 import com.ordersys.model.Payment;
@@ -47,6 +48,12 @@ public class PaymentController {
 
         BeanUtils.copyProperties(form, payment);
         return paymentService.save(payment);
+    }
+
+    @DeleteMapping("/{id}")
+    public RexModel delete(@PathVariable("id") Integer id){
+        paymentService.delete(id);
+        return new RexModel().withMessage("success");
     }
 
 }

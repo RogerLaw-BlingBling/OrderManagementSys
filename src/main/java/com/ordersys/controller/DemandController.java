@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/demand")
@@ -64,5 +65,14 @@ public class DemandController {
 
         FileContext fileContext = demandService.saveAttachmentTo(demand, file);
         return new RexModel().withMessage(fileContext.getDomainPath());
+    }
+
+    @DeleteMapping("/{id}")
+    public RexModel delete(@PathVariable("id") Integer id) throws IOException {
+        Optional<Demand> query = demandService.findOne(id);
+        if (!query.isPresent()) return new RexModel().withMessage("demand_not_exists");
+
+        demandService.delete(query.get());
+        return new RexModel().withMessage("success");
     }
 }

@@ -32,4 +32,8 @@ public class UserService {
     public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
+
+    public void delete(Integer id) {
+        userRepository.deleteById(id);
+    }
 }

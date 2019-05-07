@@ -1,6 +1,7 @@
 package com.ordersys.controller;
 
 import com.ordersys.commons.BusinessException;
+import com.ordersys.commons.RexModel;
 import com.ordersys.controller.form.ProjectUpdateForm;
 import com.ordersys.model.Order;
 import com.ordersys.model.Project;
@@ -81,5 +82,11 @@ public class ProjectController {
         Project project = projectService.findOne(id).orElseThrow(() -> new BusinessException("project_not_found"));
         BeanUtils.copyProperties(updateForm, project);
         return projectService.save(project);
+    }
+
+    @DeleteMapping("/{id}")
+    public RexModel delete(@PathVariable("id") Integer id) {
+        projectService.delete(id);
+        return new RexModel().withMessage("success");
     }
 }

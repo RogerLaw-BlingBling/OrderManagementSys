@@ -62,4 +62,12 @@ public class ContractService {
     public FileContext getAttachmentFile(Contract contract) {
         return fileService.get(contract.getId(),contract.getFilePath());
     }
+
+    public void delete(Contract contract) throws IOException {
+        FileContext fileContext = fileService.contextOf(contract.getId());
+
+        FileUtils.deleteDirectory(fileContext.getFile());
+
+        contractRepository.delete(contract);
+    }
 }

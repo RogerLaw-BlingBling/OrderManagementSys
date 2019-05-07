@@ -64,4 +64,11 @@ public class DemandService {
     public FileContext getAttachment(Demand demand) {
         return fileService.get(demand.getId(),demand.getFileName());
     }
+
+    public void delete(Demand demand) throws IOException {
+        FileContext fileContext = fileService.contextOf(demand.getId());
+
+        FileUtils.deleteDirectory(fileContext.getFile());
+        demandRepository.delete(demand);
+    }
 }

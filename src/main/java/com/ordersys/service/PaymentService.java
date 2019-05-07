@@ -29,4 +29,8 @@ public class PaymentService {
     public Optional<Payment> findOneById(Integer id) {
         return paymentRepository.findById(id);
     }
+
+    public void delete(Integer id) {
+        paymentRepository.deleteById(id);
+    }
 }
