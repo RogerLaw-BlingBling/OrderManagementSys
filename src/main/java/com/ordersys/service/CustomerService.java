@@ -28,4 +28,8 @@ public class CustomerService {
     public Optional<Customer> findById(Integer id) {
         return customerRepository.findById(id);
     }
+
+    public void delete(Integer id) {
+        customerRepository.deleteById(id);
+    }
 }
