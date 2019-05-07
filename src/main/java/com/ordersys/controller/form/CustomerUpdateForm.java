@@ -10,7 +10,7 @@ public class CustomerUpdateForm {
     private String mobilePhone;
     private String email;
     private String bankName;
-    private String backAccountNum;
+    private String bankAccountNum;
 
     public String getCustomerName() {
         return customerName;
@@ -60,11 +60,11 @@ public class CustomerUpdateForm {
         this.bankName = bankName;
     }
 
-    public String getBackAccountNum() {
-        return backAccountNum;
+    public String getBankAccountNum() {
+        return bankAccountNum;
     }
 
-    public void setBackAccountNum(String backAccountNum) {
-        this.backAccountNum = backAccountNum;
+    public void setBankAccountNum(String bankAccountNum) {
+        this.bankAccountNum = bankAccountNum;
     }
 }
