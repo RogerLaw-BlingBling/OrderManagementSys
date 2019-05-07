@@ -46,6 +46,7 @@ public class OrderController {
     public Order create(@RequestBody OrderUpdateForm form) {
         Order order = new Order();
         order.setOrderId(Randoms.randomTimeId());
+        order.setOrderStatus(Order.Status.CREATED);
         BeanUtils.copyProperties(form, order);
         return orderService.save(order);
     }
