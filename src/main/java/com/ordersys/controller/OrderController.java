@@ -62,6 +62,11 @@ public class OrderController {
         return orderService.save(order);
     }
 
+    @GetMapping(params = "keyword")
+    public Page<Order> queryByTitle(@RequestParam("keyword") String keyword,Pageable pageable){
+        return orderService.queryByTitle(keyword,pageable);
+    }
+
     @PostMapping("/{id}")
     public Order save(@PathVariable("id") String orderId, @RequestBody OrderUpdateForm form) {
         Order order = orderService

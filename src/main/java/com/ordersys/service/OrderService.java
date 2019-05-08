@@ -1,6 +1,7 @@
 package com.ordersys.service;
 
 import com.ordersys.model.Order;
+import com.ordersys.model.Project;
 import com.ordersys.repository.OrderRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -43,5 +44,9 @@ public class OrderService {
 
     public Page<Order> queryByStatus(Order.Status status, Pageable pageable) {
         return orderRepository.findByOrderStatus(status, pageable);
+    }
+
+    public Page<Order> queryByTitle(String keyword, Pageable pageable) {
+        return orderRepository.findByTitleLike("%" + keyword + "%", pageable);
     }
 }
