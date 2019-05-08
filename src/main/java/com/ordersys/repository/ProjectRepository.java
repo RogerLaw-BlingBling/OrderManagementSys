@@ -5,8 +5,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Collection;
+
 public interface ProjectRepository extends JpaRepository<Project,Integer> {
+
     Page<Project> findAllByProjectStatus(Project.Status inProgress, Pageable pageable);
+
     Page<Project> findByProjectNameLike(String keyword, Pageable pageable);
+
+    Collection<Project> findAllByOrderId(Integer id);
 }
 

@@ -114,6 +114,7 @@ public class Order {
     }
 
     //订单总额
+    @Transient
     public Double getOrderTotal() {
         return this.value == null ? 0 : ((double) value) / 100;
     }

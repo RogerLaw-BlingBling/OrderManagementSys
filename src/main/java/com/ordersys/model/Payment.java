@@ -86,12 +86,13 @@ public class Payment {
     }
 
     // The real amount of payment
+    @Transient
     public Double getAmount() {
-        return ((double) value) / 100;
+        return value == null ? 0 : ((double) value) / 100;
     }
 
     public void setAmount(Double amount) {
-        this.value = Math.toIntExact(Math.round(amount * 100));
+        this.value = amount == null ? this.value : Math.toIntExact(Math.round(amount * 100));
     }
 
     public String getAddition() {

@@ -1,11 +1,13 @@
 package com.ordersys.service;
 
+import com.ordersys.model.Order;
 import com.ordersys.model.Project;
 import com.ordersys.repository.ProjectRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -39,5 +41,9 @@ public class ProjectService {
 
     public void delete(Integer id) {
         projectRepository.deleteById(id);
+    }
+
+    public Collection<Project> findAllByOrderId(Order order) {
+        return projectRepository.findAllByOrderId(order.getId());
     }
 }

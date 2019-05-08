@@ -4,6 +4,7 @@ import com.ordersys.commons.BusinessException;
 import com.ordersys.commons.Randoms;
 import com.ordersys.controller.form.OrderUpdateForm;
 import com.ordersys.model.Order;
+import com.ordersys.model.dto.OrderDetailsDto;
 import com.ordersys.service.OrderService;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.BeanUtils;
@@ -21,6 +22,11 @@ public class OrderController {
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
+    }
+
+    @GetMapping("/{id}")
+    public OrderDetailsDto get(@PathVariable("id") String id) {
+        return orderService.findOrderIdByDetails(id).orElseThrow(() -> new BusinessException("order_not_found"));
     }
 
     @GetMapping

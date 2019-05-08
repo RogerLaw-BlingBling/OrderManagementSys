@@ -1,11 +1,13 @@
 package com.ordersys.service;
 
+import com.ordersys.model.Order;
 import com.ordersys.model.Payment;
 import com.ordersys.repository.PaymentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -32,5 +34,9 @@ public class PaymentService {
 
     public void delete(Integer id) {
         paymentRepository.deleteById(id);
+    }
+
+    public Collection<Payment> findAllByOrderId(Order order) {
+        return paymentRepository.findAllByOrderId(order.getId());
     }
 }
