@@ -72,7 +72,7 @@ public class ProjectController {
         project.setCreateTime(new Date());
         project.setProjectStatus(Project.Status.CREATED);
 
-        BeanUtils.copyProperties(projectUpdateForm, project);
+        BeanUtils.copyProperties(projectUpdateForm, project,"status");
 
         return projectService.save(project);
     }
