@@ -24,7 +24,9 @@ public class Order {
     private Integer paymentTimes;
     //乙方经办人
     private String handlerName;
+
     private Date createTime;
+
     private String comments;
 
     @Id

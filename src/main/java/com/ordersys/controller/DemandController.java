@@ -5,6 +5,7 @@ import com.ordersys.commons.RexModel;
 import com.ordersys.commons.file.fundation.FileContext;
 import com.ordersys.model.Demand;
 import com.ordersys.model.Project;
+import com.ordersys.model.dto.DemandDetailsDto;
 import com.ordersys.service.DemandService;
 import com.ordersys.service.ProjectService;
 import org.apache.shiro.authz.annotation.RequiresUser;
@@ -33,7 +34,7 @@ public class DemandController {
     }
 
     @GetMapping
-    public Page<Demand> get(@PageableDefault Pageable pageable) {
+    public Page<DemandDetailsDto> get(@PageableDefault Pageable pageable) {
         return demandService.findAll(pageable);
     }
 

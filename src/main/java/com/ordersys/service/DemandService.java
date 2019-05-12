@@ -4,6 +4,7 @@ import com.ordersys.commons.BusinessException;
 import com.ordersys.commons.file.fundation.FileContext;
 import com.ordersys.controller.DemandController;
 import com.ordersys.model.Demand;
+import com.ordersys.model.dto.DemandDetailsDto;
 import com.ordersys.repository.DemandRepository;
 import org.apache.commons.io.FileUtils;
 import org.springframework.data.domain.Page;
@@ -28,8 +29,8 @@ public class DemandService {
         this.fileService = fileService;
     }
 
-    public Page<Demand> findAll(Pageable pageable) {
-        return demandRepository.findAll(pageable);
+    public Page<DemandDetailsDto> findAll(Pageable pageable) {
+        return demandRepository.findAllDetailed(pageable);
     }
 
     public Optional<Demand> findOne(Integer id) {
@@ -39,7 +40,7 @@ public class DemandService {
     public FileContext saveAttachmentTo(Demand demand, MultipartFile file) throws IOException {
         final Integer id = demand.getId();
 
-        if (!demand.getFileName().trim().isEmpty()) {
+        if (demand.getFileName() != null && !demand.getFileName().trim().isEmpty()) {
             FileContext oldFile = fileService.get(id, demand.getFileName());
             File backupFile = new File(oldFile.getFile().getParent(), oldFile.getFile().getName() + ".old");
             FileUtils.moveFile(oldFile.getFile(), backupFile);
