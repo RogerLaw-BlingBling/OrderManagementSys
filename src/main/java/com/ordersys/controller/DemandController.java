@@ -13,9 +13,12 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
@@ -43,9 +46,11 @@ public class DemandController {
         return demandService.findOne(id).orElse(null);
     }
 
-    @GetMapping("/{id}/file")
-    public FileSystemResource getFile(@PathVariable("id") Integer id) {
+    @GetMapping(value = "/{id}/file", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public FileSystemResource getFile(@PathVariable("id") Integer id, HttpServletResponse response) {
         Demand demand = demandService.findOne(id).orElseThrow(() -> new BusinessException("demand_not_found"));
+        String filename = UriUtils.encode(demand.getTitle(), "utf8");
+        response.setHeader("Content-Description", "attachment; filename=" + filename);
         return new FileSystemResource(demandService.getAttachment(demand).getFile());
     }
 
