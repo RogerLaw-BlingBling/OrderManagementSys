@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/order")
 @RequiresUser
@@ -53,6 +55,7 @@ public class OrderController {
         Order order = new Order();
         order.setOrderId(Randoms.randomTimeId());
         order.setOrderStatus(Order.Status.CREATED);
+        order.setCreateTime(new Date());
         BeanUtils.copyProperties(form, order);
         return orderService.save(order);
     }

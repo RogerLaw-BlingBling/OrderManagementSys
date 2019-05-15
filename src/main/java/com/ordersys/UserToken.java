@@ -1,7 +1,6 @@
 package com.ordersys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ordersys.model.User;
 import org.apache.shiro.authc.AuthenticationToken;
 
 public class UserToken implements AuthenticationToken {
