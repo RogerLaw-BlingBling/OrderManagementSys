@@ -32,4 +32,8 @@ public class CustomerService {
     public void delete(Integer id) {
         customerRepository.deleteById(id);
     }
+
+    public Page<Customer> queryByCustomerName(String keyword, Pageable pageable) {
+        return customerRepository.findByCustomerNameLike("%" + keyword + "%", pageable);
+    }
 }

@@ -50,6 +50,20 @@ public class OrderController {
 //        return orderService.queryByStatus(Order.Status.valueOf(status.toUpperCase()), pageable);
 //    }
 
+//    @PostMapping("/{id}")
+//    public Customer update(@PathVariable("id") Integer id, @RequestBody CustomerUpdateForm form) {
+//        Customer customer = customerService.findById(id).orElseThrow(() -> new BusinessException("customer_not_found"));
+//        BeanUtils.copyProperties(form, customer);
+//        return customerService.save(customer);
+//    }
+
+//    @PostMapping("/{id}")
+//    public Order update(@PathVariable("id") Integer id,@RequestBody OrderUpdateForm form){
+//        Order order = orderService.findById(id).orElseThrow(()->new BusinessException("order_not_found"));
+//        BeanUtils.copyProperties(form,order);
+//        return orderService.save(order);
+//    }
+
     @PostMapping
     public Order create(@RequestBody OrderUpdateForm form) {
         Order order = new Order();
@@ -76,17 +90,14 @@ public class OrderController {
         return orderService.queryByTitle(keyword,pageable);
     }
 
-    @PostMapping("/{id}")
-    public Order save(@PathVariable("id") String orderId, @RequestBody OrderUpdateForm form) {
+    @PostMapping("/{orderid}")
+    public Order save(@PathVariable("orderid") String orderId, @RequestBody OrderUpdateForm form) {
         Order order = orderService
                 .findByOrderId(orderId)
                 .orElseThrow(() -> new BusinessException("order_not_found"));
 
         switch (order.getOrderStatus()) {
             case CREATED:
-                // Allow all things to be overwrite
-                BeanUtils.copyProperties(form, order);
-                break;
             case IN_PROGRESS:
                 // Only allow some properties to be overwrite
                 BeanUtils.copyProperties(form, order, "customerId");

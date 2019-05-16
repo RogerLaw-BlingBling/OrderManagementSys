@@ -32,6 +32,11 @@ public class CustomerController {
         return customerService.save(customer);
     }
 
+    @GetMapping(params = "keyword")
+    public Page<Customer> queryByCustomerName(@RequestParam("keyword")String keyword,Pageable pageable){
+        return  customerService.queryByCustomerName(keyword,pageable);
+    }
+
     @PostMapping("/{id}")
     public Customer update(@PathVariable("id") Integer id, @RequestBody CustomerUpdateForm form) {
         Customer customer = customerService.findById(id).orElseThrow(() -> new BusinessException("customer_not_found"));
@@ -44,4 +49,6 @@ public class CustomerController {
         customerService.delete(id);
         return new RexModel().withMessage("success");
     }
+
+
 }

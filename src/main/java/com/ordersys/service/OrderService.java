@@ -44,6 +44,10 @@ public class OrderService {
         return orderRepository.findByOrderId(orderId);
     }
 
+    public Optional<Order> findById(Integer id){
+        return orderRepository.findById(id);
+    }
+
     public Order save(Order order) {
         return orderRepository.save(order);
     }
@@ -68,7 +72,10 @@ public class OrderService {
         OrderDetailsDto dto = new OrderDetailsDto();
 
         dto.setOrder(order);
-        dto.setCustomer(customerService.findById(order.getCustomerId()).orElse(null));
+        if(order.getCustomerId() != null)
+            dto.setCustomer(customerService.findById(order.getCustomerId())
+                    .orElse(null));
+
         dto.setProjects(projectService.findAllByOrderId(order));
         dto.setPayments(paymentService.findAllByOrderId(order));
 
