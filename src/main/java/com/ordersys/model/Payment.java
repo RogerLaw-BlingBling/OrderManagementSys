@@ -18,6 +18,8 @@ public class Payment {
     private String payee;
     //收款时间
     private Date paymentTime;
+    //创建时间
+    private Date createTime;
     //附加说明
     private String addition;
     //摘要
@@ -74,6 +76,15 @@ public class Payment {
 
     public void setPaymentTime(Date paymentTime) {
         this.paymentTime = paymentTime;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @JsonIgnore

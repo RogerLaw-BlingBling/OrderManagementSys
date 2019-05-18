@@ -1,7 +1,10 @@
 package com.ordersys;
 
+import com.ordersys.model.Order;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.HashMap;
 
 @SpringBootApplication
 public class Application {

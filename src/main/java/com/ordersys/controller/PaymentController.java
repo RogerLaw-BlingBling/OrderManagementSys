@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/payment")
 @RequiresUser
@@ -38,6 +40,7 @@ public class PaymentController {
 
         Payment payment = new Payment();
         payment.setOrderId(order.getId());
+        payment.setCreateTime(new Date());
         BeanUtils.copyProperties(form, payment);
         return paymentService.save(payment);
     }

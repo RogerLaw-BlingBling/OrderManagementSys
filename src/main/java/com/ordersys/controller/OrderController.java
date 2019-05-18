@@ -51,13 +51,6 @@ public class OrderController {
 //    }
 
 //    @PostMapping("/{id}")
-//    public Customer update(@PathVariable("id") Integer id, @RequestBody CustomerUpdateForm form) {
-//        Customer customer = customerService.findById(id).orElseThrow(() -> new BusinessException("customer_not_found"));
-//        BeanUtils.copyProperties(form, customer);
-//        return customerService.save(customer);
-//    }
-
-//    @PostMapping("/{id}")
 //    public Order update(@PathVariable("id") Integer id,@RequestBody OrderUpdateForm form){
 //        Order order = orderService.findById(id).orElseThrow(()->new BusinessException("order_not_found"));
 //        BeanUtils.copyProperties(form,order);
