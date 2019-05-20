@@ -6,6 +6,7 @@ import com.ordersys.controller.form.OrderUpdateForm;
 import com.ordersys.model.Order;
 import com.ordersys.model.dto.OrderDetailsDto;
 import com.ordersys.service.OrderService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,6 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/order")
-@RequiresUser
 public class OrderController {
 
     private final OrderService orderService;
@@ -27,19 +27,21 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
+    @RequiresAuthentication
     public OrderDetailsDto get(@PathVariable("id") String id) {
         return orderService.findOrderIdByDetails(id).orElseThrow(() -> new BusinessException("order_not_found"));
     }
 
     @GetMapping
-    public Page<Order> get(@RequestParam(value = "orderId", required = false, defaultValue = "") String orderId,
+    @RequiresAuthentication
+    public Page<Order> get(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
                            @RequestParam(value = "status", required = false, defaultValue = "") String status,
                            @PageableDefault Pageable pageable) {
 
-        if (orderId.isEmpty() && status.isEmpty()) return orderService.findAll(pageable);
+        if (keyword.isEmpty() && status.isEmpty()) return orderService.findAll(pageable);
 
         Order orderExample = new Order();
-        if (!orderId.isEmpty()) orderExample.setOrderId(orderId);
+        if (!keyword.isEmpty()) orderExample.setTitle(keyword);
         if (!status.isEmpty()) orderExample.setOrderStatus(Order.Status.valueOf(status.toUpperCase()));
 
         return orderService.query(orderExample, pageable);
@@ -58,6 +60,7 @@ public class OrderController {
 //    }
 
     @PostMapping
+    @RequiresAuthentication
     public Order create(@RequestBody OrderUpdateForm form) {
         Order order = new Order();
         order.setOrderId(Randoms.randomTimeId());
@@ -68,6 +71,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/{orderId}", params = "status")
+    @RequiresAuthentication
     public Order updateStatus(@PathVariable("orderId") String orderId, @RequestParam("status") String status) {
 
         Order order = orderService
@@ -78,13 +82,14 @@ public class OrderController {
         return orderService.save(order);
     }
 
-    @GetMapping(params = "keyword")
-    public Page<Order> queryByTitle(@RequestParam("keyword") String keyword,Pageable pageable){
-        return orderService.queryByTitle(keyword,pageable);
-    }
+//    @GetMapping(params = "keyword")
+//    public Page<Order> queryByTitle(@RequestParam("keyword") String keyword,Pageable pageable){
+//        return orderService.queryByTitle(keyword,pageable);
+//    }
 
-    @PostMapping("/{orderid}")
-    public Order save(@PathVariable("orderid") String orderId, @RequestBody OrderUpdateForm form) {
+    @PostMapping("/{orderId}")
+    @RequiresAuthentication
+    public Order save(@PathVariable("orderId") String orderId, @RequestBody OrderUpdateForm form) {
         Order order = orderService
                 .findByOrderId(orderId)
                 .orElseThrow(() -> new BusinessException("order_not_found"));

@@ -1,6 +1,7 @@
 package com.ordersys.controller.form;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.ordersys.model.Order;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderUpdateForm {
@@ -10,6 +11,7 @@ public class OrderUpdateForm {
     private Double orderTotal;
     private Integer paymentTimes;
     private String handlerName;
+    private Order.Status orderStatus;
     private String comments;
 
     public Integer getCustomerId() {
@@ -58,5 +60,13 @@ public class OrderUpdateForm {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public Order.Status getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(Order.Status orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }

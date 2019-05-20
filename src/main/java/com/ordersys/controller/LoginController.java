@@ -3,23 +3,27 @@ package com.ordersys.controller;
 import com.ordersys.UserToken;
 import com.ordersys.commons.RexModel;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresUser;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.shiro.subject.Subject;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@RequiresUser
 public class LoginController {
 
     @PostMapping(params = "login")
     public RexModel login(@RequestBody UserToken token) {
-        SecurityUtils.getSecurityManager().login(SecurityUtils.getSubject(), token);
+        Subject anonymous = SecurityUtils.getSubject();
+        anonymous.login(token);
         return new RexModel<>()
                 .withMessage("success")
-                .withData(SecurityUtils.getSubject().getPrincipal());
+                .withData(anonymous.getPrincipal());
+    }
+
+    @GetMapping
+    public Object currentPrincipal() {
+        return SecurityUtils.getSubject().getPrincipal();
     }
 
     @PostMapping(params = "logout")

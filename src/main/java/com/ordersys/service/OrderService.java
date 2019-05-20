@@ -31,9 +31,9 @@ public class OrderService {
     }
 
     public Page<Order> query(Order example, Pageable pageable) {
-        final ExampleMatcher orderExampleMatcher = ExampleMatcher.matchingAny()
-                .withMatcher("orderId", ExampleMatcher.GenericPropertyMatchers.endsWith().ignoreCase())
-//                .withMatcher("orderStatus", ExampleMatcher.GenericPropertyMatchers.contains())
+        final ExampleMatcher orderExampleMatcher = ExampleMatcher.matchingAll()
+                .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("orderStatus", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withIgnoreNullValues()
                 .withIgnorePaths("value");
 

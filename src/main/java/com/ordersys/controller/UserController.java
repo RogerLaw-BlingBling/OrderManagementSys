@@ -8,6 +8,7 @@ import com.ordersys.model.User;
 import com.ordersys.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.BeanUtils;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-@RequiresUser
 public class UserController {
 
     private final UserService userService;
@@ -29,6 +29,7 @@ public class UserController {
 
     @PostMapping
     @RequiresRoles("admin")
+    @RequiresAuthentication
     public User create(@RequestBody UserUpdateForm userUpdateForm) {
         if (userService.findByUsername(userUpdateForm.getUsername()).isPresent())
             throw new BusinessException("user_exists");
@@ -39,16 +40,19 @@ public class UserController {
     }
 
     @GetMapping
+    @RequiresAuthentication
     public Page<User> get(@PageableDefault Pageable pageable) {
         return userService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
+    @RequiresAuthentication
     public User get(@PathVariable("id") Integer id) {
         return userService.findOne(id).orElse(null);
     }
 
     @PostMapping("/{id}")
+    @RequiresAuthentication
     public User updateUser(@PathVariable("id") Integer id, UserUpdateForm userUpdateForm) {
         User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
         boolean canModifyOthers = SecurityUtils.getSubject().hasRole("admin");
@@ -66,6 +70,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}/password")
+    @RequiresAuthentication
     public RexModel updatePassword(@PathVariable("id") Integer id, @RequestBody PasswordUpdateForm form) {
         User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
         boolean canModifyOthers = SecurityUtils.getSubject().hasRole("admin");
@@ -83,6 +88,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @RequiresAuthentication
     public RexModel delete(@PathVariable("id") Integer id) {
         userService.delete(id);
         return new RexModel().withMessage("success");
